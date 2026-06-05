@@ -1,0 +1,13 @@
+#tfvars file needs to be ignored
+*.tfvars
+
+#we will also ignore terraform directory and state files
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Ec2 key pair also needs to be ignored
+devops_ec2_key
+
+# VS Code
+.vscode/
