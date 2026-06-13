@@ -1,6 +1,3 @@
-#tfvars file needs to be ignored
-*.tfvars
-
 #we will also ignore terraform directory and state files
 .terraform/
 *.tfstate

@@ -9,6 +9,9 @@ jobs:
     terraform-validation:
         runs-on: ubuntu-latest
 
+        env:
+            TF_VAR_db_password: ${{ secrets.TF_VAR_db_password }}
+
         defaults:
             run:
                 working-directory: Environments/Staging
@@ -37,4 +40,4 @@ jobs:
               run: terraform validate
 
             - name: Terraform Plan
-              run: terraform plan -out=tfplan
+              run: terraform plan -input=false -out=tfplan
