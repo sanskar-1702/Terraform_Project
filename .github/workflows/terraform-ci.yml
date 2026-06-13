@@ -41,3 +41,10 @@ jobs:
 
             - name: Terraform Plan
               run: terraform plan -input=false -out=tfplan
+
+            - name: Upload Terraform Plan
+              uses: actions/upload-artifacts@v4
+
+              with:
+                name: Terraform Plan
+                path: Environments/Staging/tfplan
