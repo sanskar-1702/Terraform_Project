@@ -1,4 +1,4 @@
-name: Terraform-Staging-Pipeline
+name: Terraform-Production-Pipeline
 
 on:
     push:

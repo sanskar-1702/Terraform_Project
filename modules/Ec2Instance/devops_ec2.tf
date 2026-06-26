@@ -1,7 +1,12 @@
 #key pair for ec2
 resource "aws_key_pair" "devops_ec2_key" {
-  key_name   = "devops_ec2_key"
+  key_name   = "devops_${var.env}_ec2_key"
   public_key = file("${path.module}/devops_ec2_key.pub")
+
+  tags = {
+      environment = "${var.env}"
+      name        = "devops-${var.env}-ec2-key"
+  }
 }
 
 resource "aws_instance" "devops_ec2" {
