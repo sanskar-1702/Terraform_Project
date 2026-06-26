@@ -1,20 +1,21 @@
-name: Terraform-CI-Pipeline
+name: Terraform-Staging-Pipeline
 
 on:
     push:
-        branches:
-            - main
+        tags:
+            - 'v*.*.*'
 
 jobs:
-    terraform-validation:
+    terraform-Production-Apply:
         runs-on: ubuntu-latest
+        environment: production
 
         env:
             TF_VAR_db_password: ${{ secrets.TF_VAR_db_password }}
 
         defaults:
             run:
-                working-directory: Environments/Staging
+                working-directory: Environments/Production
 
         steps:
             - name: Checkout Code
@@ -39,13 +40,5 @@ jobs:
             - name: Terraform Validate
               run: terraform validate
 
-            - name: Terraform Plan
-              run: terraform plan -input=false -out=tfplan
-
-            - name: Upload Terraform Plan
-              uses: actions/upload-artifact@v4
-
-              with:
-                name: Staging-tfPlan
-                path: Environments/Staging/tfplan
-                retention-days: 7
+            - name: Terraform Apply
+              run: terraform apply -auto-approve -input=false

@@ -8,3 +8,7 @@ devops_ec2_key
 
 # VS Code
 .vscode/
+
+#My testing workflows
+terraform-ci.yml
+terraform-apply.yml
