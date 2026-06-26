@@ -95,3 +95,8 @@ variable "db_name" {
   description = "This is the name of my rds database"
   type        = string
 }
+
+variable "public_subnet_az" {
+  description = "This is the value of public subnet AZ"
+  type        = string
+}

@@ -24,3 +24,8 @@ variable "private_subnet_az" {
   type        = list(string)
 
 }
+
+variable "public_subnet_az" {
+  description = "This is the value of public subnet AZ"
+  type        = string
+}
