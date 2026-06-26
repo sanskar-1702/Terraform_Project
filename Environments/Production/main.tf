@@ -13,7 +13,7 @@ module "subnet" {
   public_subnet_cidr  = var.public_subnet_cidr
   private_subnet_cidr = var.private_subnet_cidr
   private_subnet_az   = var.private_subnet_az
-  public_subnet_az = var.public_subnet_az
+  public_subnet_az    = var.public_subnet_az
 }
 
 module "security_groups" {

@@ -16,4 +16,4 @@ my_rds_storage_type   = "gp2"
 db_name               = "mydevopsdb"
 db_username           = "admin"
 private_subnet_az     = ["us-east-1a", "us-east-1b"]
-public_subnet_az = "us-east-1a"
+public_subnet_az      = "us-east-1a"
