@@ -33,7 +33,7 @@ module "ec2_instance" {
   public_subnet_id      = module.networking.public_subnet_id
   ec2_volume_size       = var.ec2_volume_size
   ec2_volume_type       = var.ec2_volume_type
-  ec2_security_group_id = [ ]
+  ec2_security_group_id = []
 
 }
 
