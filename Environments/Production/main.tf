@@ -1,54 +1,54 @@
 module "vpc" {
-    source = "../../modules/VPC"
+  source = "../../modules/VPC"
 
-    vpc_cidr = var.vpc_cidr
-    env = var.env
+  vpc_cidr = var.vpc_cidr
+  env      = var.env
 }
 
 module "subnet" {
-    source = "../../modules/Subnets"
+  source = "../../modules/Subnets"
 
-    vpc_id = module.vpc.vpc_id
-    env = var.env
-    public_subnet_cidr = var.public_subnet_cidr
-    private_subnet_cidr = var.private_subnet_cidr
-    private_subnet_az = var.private_subnet_az
+  vpc_id              = module.vpc.vpc_id
+  env                 = var.env
+  public_subnet_cidr  = var.public_subnet_cidr
+  private_subnet_cidr = var.private_subnet_cidr
+  private_subnet_az   = var.private_subnet_az
 }
 
 module "security_groups" {
-    source = "../../modules/SecurityGroups"
+  source = "../../modules/SecurityGroups"
 
-    env = var.env
-    vpc_id = module.vpc.vpc_id
-    db_port = var.db_port
-    my_ip = var.my_ip
+  env     = var.env
+  vpc_id  = module.vpc.vpc_id
+  db_port = var.db_port
+  my_ip   = var.my_ip
 }
 
 module "EC2_Instance" {
-    source = "../../modules/Ec2Instance"
+  source = "../../modules/Ec2Instance"
 
-    env = var.env
-    public_subnet_id = module.subnet.public_subnet_id
-    ec2_security_group_id = [module.security_groups.ec2_security_group_id]
-    instance_type = var.instance_type
-    ami_for_ec2 = var.ami_for_ec2
-    ec2_volume_size = var.ec2_volume_size
-    ec2_volume_type = var.ec2_volume_type
+  env                   = var.env
+  public_subnet_id      = module.subnet.public_subnet_id
+  ec2_security_group_id = [module.security_groups.ec2_security_group_id]
+  instance_type         = var.instance_type
+  ami_for_ec2           = var.ami_for_ec2
+  ec2_volume_size       = var.ec2_volume_size
+  ec2_volume_type       = var.ec2_volume_type
 }
 
 module "RDS_Instance" {
-    source = "../../modules/RDS"
+  source = "../../modules/RDS"
 
-    env = var.env
-    rds_private_subnet_id = module.subnet.private_subnet_id
-    rds_security_group_id = [module.security_groups.rds_security_group_id]
-    rds_instance_class = var.rds_instance_class
-    my_rds_engine = var.my_rds_engine
-    rds_storage = var.rds_storage
-    my_rds_storage_type = var.my_rds_storage_type
-    my_rds_engine_version = var.my_rds_engine_version
-    db_name = var.db_name
-    db_username = var.db_username
-    db_password = var.db_password
-    db_port = var.db_port
+  env                   = var.env
+  rds_private_subnet_id = module.subnet.private_subnet_id
+  rds_security_group_id = [module.security_groups.rds_security_group_id]
+  rds_instance_class    = var.rds_instance_class
+  my_rds_engine         = var.my_rds_engine
+  rds_storage           = var.rds_storage
+  my_rds_storage_type   = var.my_rds_storage_type
+  my_rds_engine_version = var.my_rds_engine_version
+  db_name               = var.db_name
+  db_username           = var.db_username
+  db_password           = var.db_password
+  db_port               = var.db_port
 }
