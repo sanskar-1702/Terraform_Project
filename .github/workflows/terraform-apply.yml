@@ -1,51 +1,51 @@
-name: Terraform Apply Pipeline
+# name: Terraform Apply Pipeline
 
-on:
-    workflow_dispatch:
+# on:
+#     workflow_dispatch:
 
-jobs:
-    terraform-apply:
-        runs-on: ubuntu-latest
+# jobs:
+#     terraform-apply:
+#         runs-on: ubuntu-latest
 
-        env:
-            TF_VARS_db_password: ${{ secrets.TF_VARS_db_password }}
+#         env:
+#             TF_VARS_db_password: ${{ secrets.TF_VARS_db_password }}
 
-        defaults:
-            run:
-                working-directory: Environments/Staging
+#         defaults:
+#             run:
+#                 working-directory: Environments/Staging
 
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
+#         steps:
+#             - name: Checkout Code
+#               uses: actions/checkout@v4
 
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v3
+#             - name: Setup Terraform
+#               uses: hashicorp/setup-terraform@v3
 
-            - name: Configure AWS Credentials
-              uses: aws-actions/configure-aws-credentials@v2
+#             - name: Configure AWS Credentials
+#               uses: aws-actions/configure-aws-credentials@v2
 
-              with:
-                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-                aws-region: us-east-1
+#               with:
+#                 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
+#                 aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+#                 aws-region: us-east-1
 
-            - name: Terraform Init
-              run: terraform init
+#             - name: Terraform Init
+#               run: terraform init
 
-            - name: Download Latest Artifact Plan
-              uses: dawidd6/action-download-artifact@v3
+#             - name: Download Latest Artifact Plan
+#               uses: dawidd6/action-download-artifact@v3
 
-              with:
-                workflow: terraform-ci.yml
-                worflow_conclusion: success
-                name: Staging-tfPlan
-                Path: Environments/Staging
+#               with:
+#                 workflow: terraform-ci.yml
+#                 worflow_conclusion: success
+#                 name: Staging-tfPlan
+#                 Path: Environments/Staging
 
-            - name: Verify Download
-              run: ls -l
+#             - name: Verify Download
+#               run: ls -l
 
-            - name: Terraform Apply Saved Plan
-              run: terraform apply -input=false tfplan
+#             - name: Terraform Apply Saved Plan
+#               run: terraform apply -input=false tfplan
 
 
             
